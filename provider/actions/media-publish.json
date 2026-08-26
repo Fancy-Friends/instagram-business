@@ -1,0 +1,18 @@
+{
+  "$comment": "The second half of Meta's publishing flow. It accepts the container id returned by media_container_create as creation_id and creates the actual post.",
+  "operation": "media_publish",
+  "kind": "media_publish",
+  "title": "Publish Instagram media",
+  "description": "Publish a previously created Instagram media container as a real post.",
+  "summary": "publish an Instagram media container",
+  "docs": "https://developers.facebook.com/docs/instagram-platform/content-publishing/#publish-the-container",
+  "sideEffects": "unsafe-to-replay",
+  "$idempotencyComment": "Meta documents no idempotency key. This creates a real post, so retry only after independently establishing that the first attempt did not publish.",
+  "request": { "method": "POST", "path": "/{igUserId}/media_publish", "encoding": "json" },
+  "config": [
+    { "type": "text", "key": "igUserId", "label": "Instagram user ID", "required": true, "description": "The same professional account id used to create the container.", "send": { "in": "path", "as": "igUserId", "value": "string" } },
+    { "type": "text", "key": "creationId", "label": "Creation ID", "required": true, "description": "The id returned by Create Instagram media container. Unpublished containers expire after 24 hours.", "send": { "in": "body", "as": "creation_id", "value": "string" } }
+  ],
+  "outputShape": [{ "path": "data.id", "type": "string", "description": "The published Instagram media id." }],
+  "contract": { "sends": ["creation_id"], "reads": ["id"] }
+}

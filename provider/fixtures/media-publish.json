@@ -1,0 +1,5 @@
+{
+  "$comment": "Meta returns the newly published media object at the top level, without a connector-specific wrapper.",
+  "operation": "media_publish",
+  "response": { "id": "17920238422030506" }
+}

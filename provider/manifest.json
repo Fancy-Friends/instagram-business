@@ -1,0 +1,39 @@
+{
+  "$comment": "THE hand-written part. Meta publishes no machine-readable Graph API spec, so every fact is grounded in its Content Publishing documentation.",
+  "connectorApi": 1,
+  "service": "instagram_business",
+  "title": "Instagram for Business",
+  "domain": "marketing",
+  "docs": "https://developers.facebook.com/docs/instagram-platform/content-publishing/",
+  "auth": "oauth2",
+  "requires": ["accessToken", "appSecret", "clientId", "clientSecret"],
+  "authorize": {
+    "kind": "query", "param": "access_token", "credential": "accessToken",
+    "$comment": "Meta documents the token as a query parameter. appsecret_proof travels beside it so installations requiring App Secret Proof do not reject every call.",
+    "proof": { "param": "appsecret_proof", "algorithm": "sha256", "over": "accessToken", "keyCredential": "appSecret", "encoding": "hex", "$comment": "HMAC-SHA256 over the access token, keyed by the app secret." }
+  },
+  "oauth": {
+    "flow": "authorization_code",
+    "authorizeUrl": "https://www.facebook.com/v25.0/dialog/oauth",
+    "tokenUrl": "https://graph.facebook.com/v25.0/oauth/access_token",
+    "scopes": ["instagram_basic", "instagram_content_publish", "pages_read_engagement"],
+    "accessTokenCredential": "accessToken",
+    "refreshTokenCredential": null,
+    "refreshTokenRotates": false,
+    "accessTokenTtlSeconds": 5184000,
+    "$refreshTokenRotates": "Facebook Login issues no refresh token, so there is nothing to rotate. The connection is re-authorized instead.",
+    "$scopeComment": "instagram_content_publish permits both publishing edges; instagram_basic identifies the professional account; pages_read_engagement is required alongside the Page-linked account flow."
+  },
+  "sandbox": "none",
+  "$sandboxComment": "CHECKED. Meta provides no separate publishing host, credentials or test estate. media_publish creates a real post; container creation creates a real temporary object that expires after 24 hours.",
+  "sandboxNote": "Instagram publishing has no sandbox. Publishing creates a real post on a real professional account, and an unpublished container expires after 24 hours.",
+  "baseUrls": { "live": "https://graph.facebook.com/v25.0" },
+  "$baseUrlComment": "The Graph API version is a path segment. Pinning v25.0 avoids Meta's unversioned selection of an older supported version.",
+  "encoding": "json",
+  "credentialFields": [
+    { "key": "clientId", "label": "App ID", "scope": "provider", "secret": false, "help": "From the Meta app dashboard. One value serves the installation." },
+    { "key": "clientSecret", "label": "App secret (OAuth)", "scope": "provider", "secret": true, "help": "Used for the authorization-code exchange." },
+    { "key": "appSecret", "label": "App secret (proof)", "scope": "provider", "secret": true, "help": "Keys appsecret_proof on outgoing Graph API calls." },
+    { "key": "accessToken", "label": "Instagram access token", "scope": "account", "secret": true, "help": "The connected professional account's long-lived Meta access token." }
+  ]
+}

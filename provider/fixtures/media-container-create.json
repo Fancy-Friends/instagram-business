@@ -1,0 +1,5 @@
+{
+  "$comment": "Meta returns the created container at the top level. This id is temporary and does not identify a published post.",
+  "operation": "media_container_create",
+  "response": { "id": "17889455560051444" }
+}

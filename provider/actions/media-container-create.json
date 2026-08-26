@@ -1,0 +1,19 @@
+{
+  "$comment": "The first half of Meta's publishing flow. POST /{ig-user-id}/media creates a container and returns its id; it does not publish media.",
+  "operation": "media_container_create",
+  "kind": "media_container",
+  "title": "Instagram media container",
+  "description": "Create an Instagram image container. This reports success before any post exists: pass its id to Publish Instagram media, or the unpublished container expires after 24 hours without producing a post.",
+  "summary": "create an Instagram image container",
+  "docs": "https://developers.facebook.com/docs/instagram-platform/content-publishing/#create-a-container",
+  "sideEffects": "unsafe-to-replay",
+  "$idempotencyComment": "Meta documents no idempotency key. Retrying creates a second container, and neither becomes a post until a separate publish call succeeds.",
+  "request": { "method": "POST", "path": "/{igUserId}/media", "encoding": "json" },
+  "config": [
+    { "type": "text", "key": "igUserId", "label": "Instagram user ID", "required": true, "description": "The professional Instagram account's numeric Graph API id.", "send": { "in": "path", "as": "igUserId", "value": "string" } },
+    { "type": "text", "key": "imageUrl", "label": "Image URL", "required": true, "description": "A publicly reachable image URL. Meta fetches its bytes while creating the container.", "send": { "in": "body", "as": "image_url", "value": "string" } },
+    { "type": "textarea", "key": "caption", "label": "Caption", "description": "The caption stored with the container and used when published.", "send": { "in": "body", "as": "caption", "value": "string" } }
+  ],
+  "outputShape": [{ "path": "data.id", "type": "string", "description": "The creation id to pass to Publish Instagram media." }],
+  "contract": { "sends": ["image_url", "caption"], "reads": ["id"] }
+}
