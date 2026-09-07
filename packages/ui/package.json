@@ -4,7 +4,8 @@
   "description": "Instagram for Business's authoring surface for fancy-flow — the node kinds, their config schemas and their declared output shapes. React on every host; carries no executor.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Fancy-Friends/instagram-business.git"
+    "url": "git+https://github.com/Fancy-Friends/instagram-business.git",
+    "directory": "packages/ui"
   },
   "homepage": "https://github.com/Fancy-Friends/instagram-business#readme",
   "bugs": "https://github.com/Fancy-Friends/instagram-business/issues",
