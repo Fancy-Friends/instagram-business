@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ParticleAcademy\InstagramBusiness;
 
+use ParticleAcademy\Connectors\FakeValues;
 use ParticleAcademy\Connectors\Mode;
 use ParticleAcademy\Connectors\PreparedRequest;
 use ParticleAcademy\Connectors\SandboxKind;
@@ -61,7 +62,12 @@ final class InstagramBusiness
             ],
             requires: self::REQUIRES,
             authorize: self::authorize(...),
-            faker: InstagramBusinessFaker::respond(...),
+            // The core calls a faker ($operation, $config, $fake, $input); respond()
+            // takes TypeScript's FakeRequest shape. This is the translation.
+            faker: static fn (string $operation, array $config, FakeValues $fake, mixed $input = null): mixed => InstagramBusinessFaker::respond(
+                $operation,
+                ['config' => $config, 'fake' => $fake, 'input' => $input],
+            ),
         );
     }
 
