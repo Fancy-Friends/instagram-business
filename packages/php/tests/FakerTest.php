@@ -30,6 +30,12 @@ it('media_container_create fakes the shape Instagram for Business publishes', fu
 
     $faked = InstagramBusinessFaker::respond('media_container_create', ['config' => $config, 'fake' => $fake]);
 
+    // Through JSON and back, because a faked EMPTY object is a stdClass — the only
+    // PHP value that spells `{}` on the wire — and `toBe` compares objects by
+    // identity. This asserts the VALUES; the `{}`-versus-`[]` spelling is what
+    // weaver's cross-runtime parity suite asserts, byte for byte.
+    $faked = json_decode((string) json_encode($faked), true, 512, JSON_THROW_ON_ERROR);
+
     expect($faked)->toBe([
         'id' => '17889455560051444',
     ]);
@@ -40,6 +46,12 @@ it('media_publish fakes the shape Instagram for Business publishes', function ()
     $fake = new FakeValues(FakeValues::seedForCall('instagram_business', 'media_publish', $config));
 
     $faked = InstagramBusinessFaker::respond('media_publish', ['config' => $config, 'fake' => $fake]);
+
+    // Through JSON and back, because a faked EMPTY object is a stdClass — the only
+    // PHP value that spells `{}` on the wire — and `toBe` compares objects by
+    // identity. This asserts the VALUES; the `{}`-versus-`[]` spelling is what
+    // weaver's cross-runtime parity suite asserts, byte for byte.
+    $faked = json_decode((string) json_encode($faked), true, 512, JSON_THROW_ON_ERROR);
 
     expect($faked)->toBe([
         'id' => '17920238422030506',
