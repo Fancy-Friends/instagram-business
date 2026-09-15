@@ -50,7 +50,7 @@ final class InstagramBusinessFaker
     }
 
     /** @param array<string,mixed> $config */
-    private static function MediaContainerCreate(array $config, mixed $fake): array
+    private static function MediaContainerCreate(array $config, mixed $fake): array|\stdClass
     {
         return [
         'id' => '17889455560051444',
@@ -58,7 +58,7 @@ final class InstagramBusinessFaker
     }
 
     /** @param array<string,mixed> $config */
-    private static function MediaPublish(array $config, mixed $fake): array
+    private static function MediaPublish(array $config, mixed $fake): array|\stdClass
     {
         return [
         'id' => '17920238422030506',
