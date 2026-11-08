@@ -20,12 +20,12 @@ return [
 
     'credentials' => [
         // App ID (one per installation).
-        'clientId' => env('INSTAGRAM_BUSINESS_CLIENTID'),
+        'clientId' => env('INSTAGRAM_BUSINESS_CLIENT_ID', env('INSTAGRAM_BUSINESS_CLIENTID')),
         // App secret (OAuth) (one per installation, secret).
-        'clientSecret' => env('INSTAGRAM_BUSINESS_CLIENTSECRET'),
+        'clientSecret' => env('INSTAGRAM_BUSINESS_CLIENT_SECRET', env('INSTAGRAM_BUSINESS_CLIENTSECRET')),
         // App secret (proof) (one per installation, secret).
-        'appSecret' => env('INSTAGRAM_BUSINESS_APPSECRET'),
+        'appSecret' => env('INSTAGRAM_BUSINESS_APP_SECRET', env('INSTAGRAM_BUSINESS_APPSECRET')),
         // Instagram access token (per connected account, secret).
-        'accessToken' => env('INSTAGRAM_BUSINESS_ACCESSTOKEN'),
+        'accessToken' => env('INSTAGRAM_BUSINESS_ACCESS_TOKEN', env('INSTAGRAM_BUSINESS_ACCESSTOKEN')),
     ],
 ];
