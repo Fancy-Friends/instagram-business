@@ -4,6 +4,22 @@ All notable changes to `@particle-academy/instagram-business-ui`,
 `@particle-academy/instagram-business-js`,
 `particle-academy/instagram-business-php` and `fancy-instagram-business`.
 
+## [0.2.1] — 2026-11-08
+
+### Fixed
+
+- **The Laravel config's environment variable names now split camelCase**,
+  as documented. **Consumer action: none.** The old unsplit names are still
+  read as a fallback, so an app that set them keeps working; the new names
+  are preferred.
+
+  | Preferred | Still read |
+  |---|---|
+  | `INSTAGRAM_BUSINESS_CLIENT_ID` | `INSTAGRAM_BUSINESS_CLIENTID` |
+  | `INSTAGRAM_BUSINESS_CLIENT_SECRET` | `INSTAGRAM_BUSINESS_CLIENTSECRET` |
+  | `INSTAGRAM_BUSINESS_APP_SECRET` | `INSTAGRAM_BUSINESS_APPSECRET` |
+  | `INSTAGRAM_BUSINESS_ACCESS_TOKEN` | `INSTAGRAM_BUSINESS_ACCESSTOKEN` |
+
 ## [0.2.0] — 2026-11-08
 
 ### Added
