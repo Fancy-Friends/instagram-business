@@ -4,6 +4,27 @@ All notable changes to `@particle-academy/instagram-business-ui`,
 `@particle-academy/instagram-business-js`,
 `particle-academy/instagram-business-php` and `fancy-instagram-business`.
 
+## [0.2.0] — 2026-11-08
+
+### Added
+
+- **Laravel integration, in this package** (`src/Laravel/`), auto-discovered
+  through composer's `extra.laravel`. Laravel is SUGGESTED, never required:
+  outside a Laravel app none of it loads.
+  - a service provider that merges `config/instagram-business.php` under
+    `connectors.instagram-business` (credentials from the environment, or per call for a
+    multi-account app);
+  - the `InstagramBusiness` facade: `InstagramBusiness::call('<operation>', [...])` runs any action;
+  - `InstagramBusiness::fake()`, answered from the connector's faker, with
+    `assertSent` / `assertNotSent` / `assertNothingSent` / `assertSentCount`;
+  - its own Pest test of all of it against a booted Laravel app.
+
+### Changed
+
+- **Tests: Pest `^5`**, and `laravel/framework` `^13` as a DEV-ONLY test
+  dependency (the framework this package integrates with; nothing ships in
+  `require`).
+
 ## [0.1.3] — 2026-09-12
 
 ### Changed
